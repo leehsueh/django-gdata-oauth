@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<title>Google OAuth Test</title>
+	<meta name="description" content="">
+	<base href="/">
+
+	<!-- for mobile devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<h1>Google OAuth Test</h1>
+<h2>Folder: {{ folder.title.text }}</h2>
+<ul>
+{% for entry in feed.entry %}
+	<li><a href="{% url google_oauth:doc entry.resource_id.text %}">{{ entry.title.text }}</a></li>
+{% endfor %}
+</ul>
+
+{% if doc %}
+<h2>{{ doc.title.text }}</h2>
+{{ content|safe }}
+{% endif %}
+</body>
+
+</html>
