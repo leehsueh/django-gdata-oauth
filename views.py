@@ -16,8 +16,8 @@ import gdata.docs.client
 # NOTE: You must change the consumer key and consumer secret to the 
 #       key and secret that you received from Google
 #
-CONSUMER_KEY = "anonymous"
-CONSUMER_SECRET = "anonymous"
+from siteapps_v1.settings import GDATA_CONSUMER_KEY, GDATA_CONSUMER_SECRET
+
 SOURCE_NAME = "leehsueh-TJCBDB-v1"
 SCOPES = ['https://docs.google.com/feeds/', ]   # include others for multi-scope keys
 
@@ -33,8 +33,8 @@ def oauth_start(request):
     request_token = client.GetOAuthToken(
         SCOPES,
         oauth_callback_url,
-        CONSUMER_KEY,
-        consumer_secret=CONSUMER_SECRET
+        GDATA_CONSUMER_KEY,
+        consumer_secret=GDATA_CONSUMER_SECRET
     )
 
     # save in session
@@ -129,8 +129,8 @@ def get_doc_content(request, resource_id):
 def get_client(token, token_secret):
     client = gdata.docs.client.DocsClient(source=SOURCE_NAME)
     client.auth_token = gdata.gauth.OAuthHmacToken(
-        CONSUMER_KEY,
-        CONSUMER_SECRET,
+        GDATA_CONSUMER_KEY,
+        GDATA_CONSUMER_SECRET,
         token,
         token_secret,
         gdata.gauth.ACCESS_TOKEN
