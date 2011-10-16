@@ -20,7 +20,7 @@ Usage Instructions
 
 NOTE: Integration may not be the most elegant, but for now it works.
 
-* In your views file, import from the evernote_oauth views the following as needed:
+* In your views file, import from the google_oauth views the following as needed:
 	- view functions and utility functions
 		- oauth_start
 		- get_client
@@ -29,12 +29,12 @@ NOTE: Integration may not be the most elegant, but for now it works.
 	- session key constants
 		- GOOGLE_OAUTH_REQ_TOKEN
 		- GOOGLE_OAUTH_TOKEN
-* Perform a check to determine whether evernote authentication (or reauthentication) is required (e.g. by examining session variables, checking the session expiry age, or trying to invoke the evernote service and handling an authentication expired exception).
+* Perform a check to determine whether google authentication (or reauthentication) is required (e.g. by examining session variables).
 * If authentication is not needed, proceed with your application view logic. 
 * Otherwise, return oauth_start(request)
 	- this will automatically redirect the user to authenticate with Google, and Google will use the value of request.build_absolute_uri(request.path) as the callback URL
 	- your view function, to handle the callback invoked by Google, needs to invoke the oauth_get_access_token method, which will store the authentication tokens as django session variables, indexed by the session key constants. After the call to oauth_get_access_token, most likely you'll want to redirect the user once more to request.build_absolute_uri(request.path), and this time, your application view logic will be performed
-	- in summary, your view function will be invoked 3 times: first by the user requesting it, second by Evernote as a callback with authentication parameters, and third by the view itself after the authentication parameters are stored in the session (this third redirect is performed in order to clear the authentication token from the address bar)
+	- in summary, your view function will be invoked 3 times: first by the user requesting it, second by Google as a callback with authentication parameters, and third by the view itself after the authentication parameters are stored in the session (this third redirect is performed in order to clear the authentication token from the address bar)
 
 
 Usage Example
